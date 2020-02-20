@@ -12,7 +12,7 @@ This is a step-by-step guide to setup a React Native project with F# and Fable (
 
 # Setup a new React Native project
 
-This how-to will not go into detail on how to install React Native and how React Native works. When you have React Native reacy you can reate a new project by running `react-native init <project name>`
+This how-to will not go into detail on how to install React Native and how React Native works. When you have React Native ready you can create a new project by running `react-native init <project name>`
 
 You should test that your basic React Native project compiles/runs before moving further.
 
@@ -194,5 +194,5 @@ Now you can compile your F# code to JavaScript and dump it to a folder. In the s
     - or `yarn watch` if you altered the `scripts` section of `packages.json`
 2. Run app
     - `react-native run-ios|android`
-3. Watch as the app running updates as your F# code is changed. Enjoy!
+3. Watch as the app updates along with your F# code. Enjoy!
 
