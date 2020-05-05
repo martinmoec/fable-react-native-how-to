@@ -141,10 +141,10 @@ Install the [fable-splitter](https://www.npmjs.com/package/fable-splitter) and [
 
 `yarn add --dev @babel/preset-env`
 
-Go ahead and delete your `babel.config.js` file.
-
 You can now compile your F# project to Javascript by simply running `yarn fable-splitter src/App.fsproj -o out`
 (Note the `-o` parameter specifying the output folder to dump the .js files) 
+
+If you get a compilation error it is likely to be caused by your `babel.config.js` file, and i've experienced that the easiest way to get rid of this i simply by deleting the `babel.config.js` file altogether. However, someone with a better Babel understanding than me could probably provide a better configuration/setup (suggestions welcomed).
 
 You can provide the `fable-splitter` with a config file for simpler configuration. For example:
 ```javascript
