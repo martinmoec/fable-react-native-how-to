@@ -133,18 +133,18 @@ IMPORTANT: Feed the name of your project in `Program.withReactNative` (the same 
 
 # Install npm-packages
 
-Install the [fable-splitter](https://www.npmjs.com/package/fable-splitter) and [fable-compiler](https://www.npmjs.com/package/fable-compiler) npm-modules. See the documentation of these for further info.
+Install the [fable-splitter](https://www.npmjs.com/package/fable-splitter), [fable-compiler](https://www.npmjs.com/package/fable-compiler) and the [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env) npm-modules as dev-dependencies. See the documentation of these for further info.
 
-`yarn add --dev fable-splitter fable-compiler` 
+`yarn add --dev fable-splitter fable-compiler @babel/preset-env` 
 
-`yarn add buffer`
+You will also need to install the [buffer](https://www.npmjs.com/package/buffer) npm-module, along with the [@react-native-community/netinfo](https://www.npmjs.com/package/@react-native-community/netinfo) module which is required by Fable.React.Native.
 
-`yarn add --dev @babel/preset-env`
+`yarn add buffer @react-native-community/netinfo`
 
 You can now compile your F# project to Javascript by simply running `yarn fable-splitter src/App.fsproj -o out`
 (Note the `-o` parameter specifying the output folder to dump the .js files) 
 
-If you get a compilation error it is likely to be caused by your `babel.config.js` file, and i've experienced that the easiest way to get rid of this i simply by deleting the `babel.config.js` file altogether. However, someone with a better Babel understanding than me could probably provide a better configuration/setup (suggestions welcomed).
+If you get a compilation error it is likely to be caused by your `babel.config.js` file, and i've experienced that the easiest way to get rid of this i simply by deleting the `babel.config.js` file altogether. You can also provide a configuration file as shown below. However, someone with a better Babel understanding than me could probably provide a better configuration/setup (suggestions welcomed).
 
 You can provide the `fable-splitter` with a config file for simpler configuration. For example:
 ```javascript
@@ -153,6 +153,7 @@ module.exports = {
     outDir: "out",
     babel: {
       presets: [["@babel/preset-env", { modules: "commonjs" }]],
+      filename: "App.js",
       sourceMaps: false,
     },
     // The `onCompiled` hook (optional) is raised after each compilation
