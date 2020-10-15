@@ -177,4 +177,4 @@ Now you can compile your F# code to JavaScript and dump it to a folder. In the s
 3. Watch as the app updates along with your F# code. Enjoy!
 
 # More
-- For larger apps you might want to opt out of Elmish and include navigation. Take a look at the following [how-to](navigation/README.md)
+- For larger apps you might want to opt out of Elmish and include navigation. Take a look at the following [how-to](navigation)
