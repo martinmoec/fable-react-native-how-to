@@ -12,13 +12,12 @@ type Model = {
 type Message =
     | Increment 
 
-let init () = { Counter = 0}, Cmd.none
+let init () = {Counter = 0}, Cmd.none
 
 let update msg model =
     match msg  with
     | Increment ->
-
-        { model with Counter = model.Counter + 1 }, Cmd.none 
+        {model with Counter = model.Counter + 1}, Cmd.none 
 
 module R = Fable.ReactNative.Helpers
 module P = Fable.ReactNative.Props
@@ -35,27 +34,23 @@ let view model dispatch =
         
         
         R.text [
-            P.TextProperties.Style [
-                P.Color "#ffffff"
-            ]
+            P.TextProperties.Style [ P.Color "#ffffff" ]
         ] "Press me"
         |> R.touchableHighlightWithChild [
             P.TouchableHighlightProperties.Style [
-                P.FlexStyle.Padding ( R.dip 10. )
+                P.FlexStyle.Padding (R.dip 10.)
             ]
             P.TouchableHighlightProperties.UnderlayColor "#f6f6f6"
-            OnPress ( fun _ -> dispatch Increment ) 
+            OnPress (fun _ -> dispatch Increment) 
         ]
 
         R.text [
             P.TextProperties.Style [
-                
                 P.Color "#ffffff"
                 P.FontSize 30.
                 P.TextAlign P.TextAlignment.Center
-                
             ]
-        ] ( string model.Counter )
+        ] (string model.Counter)
     ]
 
 Program.mkProgram init update view

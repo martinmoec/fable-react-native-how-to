@@ -1,13 +1,12 @@
 # How-to: Set up React Native with F# and Fable
 
-This is a step-by-step guide to setup a React Native project with F# and Fable (with Elmish). This lets you write React Native apps targeting iOS and Android almost completely through F#! Sample files for getting started can be found within this repository.
+This is a step-by-step guide to setup a React Native project with F# and Fable. This lets you write React Native apps targeting iOS and Android almost completely through F#! Sample files for getting started can be found within this repository.
 
 ## Requirements
 - React Native
 - Watchman
 - Node.js
 - .NET Core >= 3.0
-- paket
 - yarn (or npm, but i use yarn here)
 
 # Setup a new React Native project
@@ -31,7 +30,13 @@ Create a folder to hold your F# project and add a `.fsproj` file with a simple `
   <ItemGroup>
     <Compile Include="App.fs" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <PackageReference Include="Fable.Core" Version="3.1.5" />
+    <PackageReference Include="Fable.Elmish" Version="3.1.0" />
+    <PackageReference Include="Fable.Elmish.React" Version="3.0.1" />
+    <PackageReference Include="Fable.React" Version="7.0.1" />
+    <PackageReference Include="Fable.React.Native" Version="2.6.1" />
+  </ItemGroup>
 </Project>
 ```
 
@@ -53,12 +58,12 @@ type Model = {
 type Message =
     | Increment 
 
-let init () = { Counter = 0 }, Cmd.none
+let init () = {Counter = 0}, Cmd.none
 
 let update msg model =
     match msg  with
-    | Increment -> 
-        { model with Counter = model.Counter + 1 }, Cmd.none 
+    | Increment ->
+        {model with Counter = model.Counter + 1}, Cmd.none 
 
 module R = Fable.ReactNative.Helpers
 module P = Fable.ReactNative.Props
@@ -74,27 +79,23 @@ let view model dispatch =
         
         
         R.text [
-            P.TextProperties.Style [
-                P.Color "#ffffff"
-            ]
+            P.TextProperties.Style [ P.Color "#ffffff" ]
         ] "Press me"
         |> R.touchableHighlightWithChild [
             P.TouchableHighlightProperties.Style [
-                P.FlexStyle.Padding ( R.dip 10. )
+                P.FlexStyle.Padding (R.dip 10.)
             ]
             P.TouchableHighlightProperties.UnderlayColor "#f6f6f6"
-            OnPress ( fun _ -> dispatch Increment ) 
+            OnPress (fun _ -> dispatch Increment) 
         ]
 
         R.text [
             P.TextProperties.Style [
-                
                 P.Color "#ffffff"
                 P.FontSize 30.
                 P.TextAlign P.TextAlignment.Center
-                
             ]
-        ] ( string model.Counter )
+        ] (string model.Counter)
     ]
 
 Program.mkProgram init update view
@@ -107,29 +108,7 @@ IMPORTANT: Feed the name of your project in `Program.withReactNative` (the same 
 
 # Install Nuget packages
 
-1. Create a `paket.dependencies` file in the root folder
-2. Add the following Nuget packages to the list:
-    ```
-    source https://www.nuget.org/api/v2
-    storage: none
-
-    nuget Fable.Core 
-    nuget Fable.React
-    nuget Fable.Elmish 
-    nuget Fable.Elmish.React
-    nuget Fable.React.Native
-    ```
-3. Add a `paket.references` file in your F# project folder (the one named `src` in this example). Add your Nuget packages to the `paket.references` file. 
-    ```
-    Fable.Core
-    Fable.React
-    Fable.Elmish
-    Fable.Elmish.React
-    Fable.React.Native
-    ```
-
-4. Run `paket install` in your root folder.
-    - Can be installed as a global tool: `dotnet tool install paket -g`
+`cd src && dotnet restore`
 
 # Install npm-packages
 
