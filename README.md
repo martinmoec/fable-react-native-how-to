@@ -169,6 +169,7 @@ Now you can compile your F# code to JavaScript and dump it to a folder. In the s
     import * as App from './out/App';
     import { name as appName } from './app.json';
     ```
+Notice that we import App from our generated files in the `out` folder. The app registration call is also removed, as this is now handled in our F# code.
 
 # You're good to go! 
 1. Compile F# to JavaScript and watch for changes
