@@ -17,7 +17,7 @@ Create a folder to hold your F# project and add the files `App.fsproj`, `App.fs`
 
 In addition to the npm and NuGet setup from the initial how-to you will have to add the following npm-packages for React Navigation.
 
-`yarn add @react-navigation/native @react-navigation/stack @react-navigation/bottom-tabs react-native-gesture-handler react-native-reanimated react-native-safe-area-context react-native-screens @react-native-community/masked-view`
+`npm install @react-navigation/native @react-navigation/stack @react-navigation/bottom-tabs react-native-gesture-handler react-native-reanimated react-native-safe-area-context react-native-screens @react-native-community/masked-view`
 
 ### `App.fsproj`
 ```xml

@@ -7,15 +7,15 @@ This is a step-by-step guide to setup a React Native project with F# and Fable. 
 - Watchman
 - Node.js
 - .NET Core >= 3.0
-- yarn (or npm, but i use yarn here)
+- npm
 
 # Setup a new React Native project
 
-This how-to will not go into detail on how to install React Native and how React Native works. When you have React Native ready you can create a new project by running `react-native init <project name>`
+This how-to will not go into detail on how to install React Native and how React Native works. When you have React Native installed you can create a new project by running `react-native init <project name>`
 
 You should test that your basic React Native project compiles/runs before moving further.
 
-`react-native run-ios` or `react-native run-android`
+`npx react-native run-ios` or `npx react-native run-android`
 
 # Setup the F# project
 Create a folder to hold your F# project and add a `.fsproj` file with a simple `.fs` file. In this example i will create a `src` folder in the project root directory which contains the files `App.fsproj` and `App.fs`.
@@ -106,55 +106,34 @@ Program.mkProgram init update view
 
 IMPORTANT: Feed the name of your project in `Program.withReactNative` (the same you used for `react-native init` )
 
-# Install Nuget packages
+# Install Fable tool
 
-`cd src && dotnet restore`
+`dotnet new tool-manifest && dotnet tool install fable`
 
 # Install npm-packages
 
-Install the [fable-splitter](https://www.npmjs.com/package/fable-splitter), [fable-compiler](https://www.npmjs.com/package/fable-compiler) and the [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env) npm-modules as dev-dependencies. See the documentation of these for further info.
+Install the [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env) npm-module as a dev-dependency. See the documentation of these for further info.
 
-`yarn add --dev fable-splitter fable-compiler @babel/preset-env` 
+`npm install --save-dev @babel/preset-env` 
 
 You will also need to install the [buffer](https://www.npmjs.com/package/buffer) npm-module, along with the [@react-native-community/netinfo](https://www.npmjs.com/package/@react-native-community/netinfo) module which is required by Fable.React.Native.
 
-`yarn add buffer @react-native-community/netinfo`
+`npm install buffer @react-native-community/netinfo`
 
-You can now compile your F# project to Javascript by simply running `yarn fable-splitter src/App.fsproj -o out`
+You can now compile your F# project to Javascript by simply running `dotnet fable ./src -o ./out`
 (Note the `-o` parameter specifying the output folder to dump the .js files) 
 
 If you get a compilation error it is likely to be caused by your `babel.config.js` file, and i've experienced that the easiest way to get rid of this i simply by deleting the `babel.config.js` file altogether. You can also provide a configuration file as shown below. However, someone with a better Babel understanding than me could probably provide a better configuration/setup (suggestions welcomed).
 
-You can provide the `fable-splitter` with a config file for simpler configuration. For example:
-```javascript
-module.exports = {
-    entry: "src/App.fsproj",
-    outDir: "out",
-    babel: {
-      presets: [["@babel/preset-env", { modules: "commonjs" }]],
-      filename: "App.js",
-      sourceMaps: false,
-    },
-    // The `onCompiled` hook (optional) is raised after each compilation
-    onCompiled() {
-        console.log("Compilation finished!")
-    }
-  }
-```
-`fable-splitter -c splitter.config.js`
-
-Note the `entry` value should be the path to whatever you called your `.fsproj` file and the `out` value should be your output folder. This sample configuration will compile your F# project located in `./src/App.fsproj` into JavaScript dumped into the `./out` folder.
-
 #### Tips:
 ```json
-"build": "fable-splitter -c splitter.config.js --define RELEASE",
-"debug": "fable-splitter -c splitter.config.js --define DEBUG",
-"watch": "fable-splitter -c splitter.config.js -w --define DEBUG"
+"build": "dotnet fable ./src -o ./out",
+"watch": "dotnet fable watch ./src -o ./out"
 ```
-Add the above JSON to the `scripts` section of the `packages.json` file and simply call `yarn build` to compile. Run `yarn watch` in order to watch for changes and enable hot-reloading as you change your F# code.
+Add the above JSON to the `scripts` section of the `packages.json` file and simply call `npm run build` to compile. Run `npm run watch` in order to watch for changes and enable hot-reloading as you change your F# code.
 
 # Importing the generated JavaScript
-Now you can compile your F# code to JavaScript and dump it to a folder. In the sample `splitter.config.js` file we specified that the generated JavaScript is to be dumped to the `out` folder.
+Now you can compile your F# code to JavaScript and dump it to a folder (`./out` used in this example).
 
 1. Delete your default `App.js` file in the root directory.
 2. Update your `index.js` file:
@@ -170,10 +149,10 @@ Now you can compile your F# code to JavaScript and dump it to a folder. In the s
 
 # You're good to go! 
 1. Compile F# to JavaScript and watch for changes
-    - `yarn fable-splitter -c splitter.config.js -w --define DEBUG`
-    - or `yarn watch` if you altered the `scripts` section of `packages.json`
+    - `dotnet fable watch ./src -o ./out`
+    - or `npm run watch` if you altered the `scripts` section of `packages.json`
 2. Run app
-    - `react-native run-ios|android`
+    - `npx react-native run-ios|android`
 3. Watch as the app updates along with your F# code. Enjoy!
 
 # More
