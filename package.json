@@ -14,22 +14,20 @@
     },
     "dependencies": {
       "@react-native-community/netinfo": "^5.9.6",
-      "buffer": "^5.6.0",
-      "react": "16.13.1",
-      "react-native": "0.63.2"
+      "buffer": "^6.0.3",
+      "react": "17.0.2",
+      "react-native": "0.64.2"
     },
     "devDependencies": {
-      "@babel/core": "^7.11.1",
-      "@babel/runtime": "^7.11.2",
-      "@babel/preset-env": "^7.11.0",
-      "@react-native-community/eslint-config": "^2.0.0",
-      "babel-jest": "^26.3.0",
-      "eslint": "^7.6.0",
-      "fable-compiler": "^2.10.2",
-      "fable-splitter": "^2.2.1",
-      "jest": "^26.3.0",
-      "metro-react-native-babel-preset": "^0.62.0",
-      "react-test-renderer": "16.13.1"
+      "@babel/core": "^7.14.8",
+      "@babel/runtime": "^7.14.8",
+      "@babel/preset-env": "^7.14.8",
+      "@react-native-community/eslint-config": "^3.0.0",
+      "babel-jest": "^27.0.6",
+      "eslint": "^7.31.0",
+      "jest": "^27.0.6",
+      "metro-react-native-babel-preset": "^0.66.2",
+      "react-test-renderer": "17.0.2"
     },
     "jest": {
       "preset": "react-native"
