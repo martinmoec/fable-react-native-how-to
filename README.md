@@ -1,6 +1,8 @@
 # How-to: Set up React Native with F# and Fable
 
-This is a step-by-step guide to setup a React Native project with F# and Fable. This lets you write React Native apps targeting iOS and Android almost completely through F#! Sample files for getting started can be found within this repository.
+This is a step-by-step guide which aims to help you set up a React Native project with F# and Fable. The [Fable compiler](https://github.com/fable-compiler/Fable) generates JavaScript from your F# source code, and enables you to write React Native apps targeting iOS and Android almost completely through F#! Since the Fable compiler is just generating pure JavaScript from our F# source code we should be able to target any platform through React Native (Windows, MacOS, Web), though i have not tested this myself. Feel free to share your own experience with any of these platforms.
+
+Sample files for getting started can be found within this repository. 
 
 ## Requirements
 - React Native
@@ -146,6 +148,7 @@ Now you can compile your F# code to JavaScript and dump it to a folder (`./out` 
     import * as App from './out/App';
     import { name as appName } from './app.json';
     ```
+Notice that we import App from our generated files in the `out` folder. The app registration call is also removed, as this is now handled in our F# code.
 
 # You're good to go! 
 1. Compile F# to JavaScript and watch for changes
